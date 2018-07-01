@@ -1,0 +1,19 @@
+<div fxLayout="row" fxLayoutAlign="center" class="todo-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h2>Todo List</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="todoForm" (ngSubmit)="onClickSubmit()">
+      <mat-form-field fxFlexFill>
+        <mat-label>Write something to do here</mat-label>
+        <input matInput formControlName="body">
+        <mat-error *ngIf="todoForm.get('body').hasError('required')">未入力です</mat-error>
+      </mat-form-field>
+      <div fxFlexFill fxLayoutAlign="center">
+        <button type="submit" mat-raised-button color="primary" [disabled]="todoForm.invalid">Create</button>
+      </div>
+    </form>
+  </mat-card>
+</div>
