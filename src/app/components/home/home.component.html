@@ -5,7 +5,7 @@
         <h2>Todo List</h2>
       </mat-card-title>
     </mat-card-header>
-    <form [formGroup]="todoForm" (ngSubmit)="onClickSubmit()">
+    <form [formGroup]="todoForm" (ngSubmit)="createTodo()">
       <mat-form-field fxFlexFill>
         <mat-label>Write something to do here</mat-label>
         <input matInput formControlName="body">
@@ -15,5 +15,17 @@
         <button type="submit" mat-raised-button color="primary" [disabled]="todoForm.invalid">Create</button>
       </div>
     </form>
+    <mat-list role="list">
+      <mat-list-item
+        role="listitem"
+        *ngFor="let todo of todos; let i = index"
+        (mouseenter)="hoveredId = todo.id" (mouseleave)="hoveredId = null"
+      >
+        {{ todo.body }}
+        <button mat-icon-button (click)="deleteTodo(i)" *ngIf="hoveredId === todo.id">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
   </mat-card>
 </div>
