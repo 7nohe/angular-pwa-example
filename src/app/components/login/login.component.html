@@ -7,9 +7,10 @@
     </mat-card-header>
     <form [formGroup]="loginForm" (ngSubmit)="onClickSubmit()">
       <mat-form-field>
-        <mat-label><mat-icon>person</mat-icon> Username</mat-label>
-        <input matInput formControlName="username">
-        <mat-error *ngIf="loginForm.get('username').hasError('required')">未入力です</mat-error>
+        <mat-label><mat-icon>person</mat-icon> Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-error *ngIf="loginForm.get('email').hasError('required')">未入力です</mat-error>
+        <mat-error *ngIf="loginForm.get('email').hasError('email')">不正な値です</mat-error>
       </mat-form-field>
       <mat-form-field>
         <mat-label><mat-icon>lock</mat-icon> Password</mat-label>
