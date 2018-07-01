@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
+import { Observable } from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -8,16 +11,19 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 })
 export class HomeComponent implements OnInit {
   todoForm: FormGroup;
-  todos: Array<any>;
+  todosRef: AngularFireList<any>;
+  todos: Observable<any[]>;
   hoveredId: number;
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    db: AngularFireDatabase
   ) {
-    this.todos = [
-      {id: 1, body: 'Item1'},
-      {id: 2, body: 'Item2'},
-      {id: 3, body: 'Item3'},
-      ];
+    this.todosRef = db.list('todos');
+    this.todos = this.todosRef.snapshotChanges().pipe(
+      map(changes =>
+        changes.map(c => ({ key: c.payload.key, ...c.payload.val() }))
+      )
+    );
     this.todoForm = fb.group({
       body: ['', Validators.required]
     });
@@ -28,10 +34,10 @@ export class HomeComponent implements OnInit {
 
   createTodo() {
     const { body } = this.todoForm.value;
-    this.todos.push({ id: this.todos.length + 1, body });
+    this.todosRef.push({ body });
   }
 
-  deleteTodo(id) {
-    this.todos.splice(id, 1);
+  deleteTodo(key: string) {
+    this.todosRef.remove(key);
   }
 }
