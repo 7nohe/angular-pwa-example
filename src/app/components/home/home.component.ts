@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {AngularFireDatabase, AngularFireList} from 'angularfire2/database';
-import { Observable } from 'rxjs';
+import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 
 @Component({
@@ -34,7 +34,10 @@ export class HomeComponent implements OnInit {
 
   createTodo() {
     const { body } = this.todoForm.value;
-    this.todosRef.push({ body });
+    this.todosRef.push({ body })
+      .then(() => {
+        this.todoForm.reset();
+      });
   }
 
   deleteTodo(key: string) {

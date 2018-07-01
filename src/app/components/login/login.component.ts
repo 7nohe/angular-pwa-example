@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AngularFireAuth} from 'angularfire2/auth';
 import {MatSnackBar} from '@angular/material';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     public afAuth: AngularFireAuth,
-    public snackBar: MatSnackBar
+    public snackBar: MatSnackBar,
+    private router: Router
   ) {
     this.loginForm = fb.group({
       email: ['', Validators.compose([Validators.email, Validators.required])],
@@ -24,14 +26,13 @@ export class LoginComponent implements OnInit {
     this.hide = true;
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onClickSubmit() {
     const { email, password } = this.loginForm.value;
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(res => {
-        console.log('login success');
+        this.router.navigate(['']);
       })
       .catch(error => {
         this.snackBar.open('ログインに失敗しました', '閉じる', {

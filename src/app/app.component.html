@@ -1,2 +1,13 @@
-<mat-toolbar color="primary">PWA Example</mat-toolbar>
+<mat-toolbar color="primary">
+  <span>Polaris</span>
+  <span class="example-fill-remaining-space"></span>
+  <span>
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()">ログアウト</button>
+    </mat-menu>
+  </span>
+</mat-toolbar>
 <router-outlet></router-outlet>
