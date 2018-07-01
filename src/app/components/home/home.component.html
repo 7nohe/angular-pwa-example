@@ -1,0 +1,30 @@
+<div fxLayout="row" fxLayoutAlign="center" class="todo-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>
+        <h2>Todo List</h2>
+      </mat-card-title>
+    </mat-card-header>
+    <form [formGroup]="todoForm" (ngSubmit)="createTodo()">
+      <mat-form-field fxFlexFill>
+        <mat-label>Write something to do here</mat-label>
+        <input matInput formControlName="body">
+        <mat-error *ngIf="todoForm.get('body').hasError('required')">未入力です</mat-error>
+      </mat-form-field>
+      <div fxFlexFill fxLayoutAlign="center">
+        <button type="submit" mat-raised-button color="primary" [disabled]="todoForm.invalid">Create</button>
+      </div>
+    </form>
+    <mat-list role="list">
+      <mat-list-item
+        role="listitem"
+        *ngFor="let todo of todos | async"
+        (mouseenter)="hoveredId = todo.key" (mouseleave)="hoveredId = null">
+        {{ todo.body }}
+        <button mat-icon-button (click)="deleteTodo(todo.key)" *ngIf="hoveredId === todo.key">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </mat-list-item>
+    </mat-list>
+  </mat-card>
+</div>

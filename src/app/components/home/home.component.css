@@ -1,0 +1,11 @@
+.todo-container {
+  padding: 10px;
+}
+
+.todo-container > mat-card {
+  min-width: 280px;
+}
+
+mat-form-field {
+
+}

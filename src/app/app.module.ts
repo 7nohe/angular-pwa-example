@@ -5,19 +5,36 @@ import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatButtonModule } from '@angular/material';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { LoginComponent } from './components/login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppRoutingModule } from './modules/app-routing.module';
+import { MaterialModule } from './modules/material.module';
+import { HomeComponent } from './components/home/home.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {AngularFireDatabaseModule} from 'angularfire2/database';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    LoginComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    AppRoutingModule,
+    MaterialModule
   ],
-  exports: [MatButtonModule],
+  exports: [MaterialModule],
   providers: [],
   bootstrap: [AppComponent]
 })
