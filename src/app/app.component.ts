@@ -9,21 +9,11 @@ import {MatSnackBar} from '@angular/material';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app';
-
   constructor(
     public afAuth: AngularFireAuth,
     private router: Router,
     public snackBar: MatSnackBar
-  ) {
-    this.afAuth.auth.onAuthStateChanged((user) => {
-      if (user) {
-        console.log('user signed in');
-      } else {
-        this.router.navigate(['login']);
-      }
-    });
-  }
+  ) {}
 
   logout() {
     this.afAuth.auth.signOut()
