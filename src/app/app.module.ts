@@ -14,6 +14,7 @@ import { MaterialModule } from './modules/material.module';
 import { HomeComponent } from './components/home/home.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {AngularFireDatabaseModule} from 'angularfire2/database';
+import {MessagingService} from './services/messaging.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import {AngularFireDatabaseModule} from 'angularfire2/database';
     MaterialModule
   ],
   exports: [MaterialModule],
-  providers: [],
+  providers: [MessagingService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
