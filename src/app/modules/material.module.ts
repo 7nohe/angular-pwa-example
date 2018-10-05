@@ -10,6 +10,8 @@ import {
   MatToolbarModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatGridListModule,
+  MatProgressSpinnerModule
 } from '@angular/material';
 
 @NgModule({
@@ -26,6 +28,8 @@ import {
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatGridListModule,
+    MatProgressSpinnerModule
   ],
   exports: [
     MatButtonModule,
@@ -39,6 +43,8 @@ import {
     MatMenuModule,
     MatDatepickerModule,
     MatNativeDateModule,
+    MatGridListModule,
+    MatProgressSpinnerModule
   ],
   declarations: [],
 })

@@ -1,36 +1,48 @@
-<div fxLayout="row" fxLayoutAlign="center" class="todo-container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>
-        <h2>Todo List</h2>
-      </mat-card-title>
-    </mat-card-header>
-    <form [formGroup]="todoForm" (ngSubmit)="createTodo()">
-      <mat-form-field fxFlexFill>
-        <mat-label>Write your task</mat-label>
-        <input matInput formControlName="body" required>
-        <mat-error *ngIf="todoForm.get('body').hasError('required')">You must enter a value</mat-error>
-      </mat-form-field>
-      <mat-form-field fxFlexFill>
-        <input matInput formControlName="dueDate" [matDatepicker]="picker" placeholder="Choose a due date" required>
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-        <mat-error *ngIf="todoForm.get('dueDate').hasError('required')">You must enter a value</mat-error>
-      </mat-form-field>
-      <div fxFlexFill fxLayoutAlign="center">
-        <button type="submit" mat-raised-button color="primary" [disabled]="todoForm.invalid">Create</button>
-      </div>
-    </form>
-    <mat-list role="list">
-      <mat-list-item
-        role="listitem"
-        *ngFor="let todo of todos | async"
-        (mouseenter)="hoveredId = todo.key" (mouseleave)="hoveredId = null">
-        {{ todo.body }}
-        <button mat-icon-button (click)="deleteTodo(todo.key)" *ngIf="hoveredId === todo.key">
-          <mat-icon>delete</mat-icon>
-        </button>
-      </mat-list-item>
-    </mat-list>
-  </mat-card>
+<div class="todo-container">
+  <mat-grid-list cols="1" rowHeight="240px" gutterSize="5">
+    <mat-grid-tile>
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>
+            <h2>Todo List</h2>
+          </mat-card-title>
+        </mat-card-header>
+        <form [formGroup]="todoForm" (ngSubmit)="createTodo()">
+          <mat-form-field fxFlexFill>
+            <mat-label>Write your task</mat-label>
+            <input matInput formControlName="body" required>
+            <mat-error *ngIf="todoForm.get('body').hasError('required')">You must enter a value</mat-error>
+          </mat-form-field>
+          <mat-form-field fxFlexFill>
+            <input matInput formControlName="dueDate" [matDatepicker]="picker" placeholder="Choose a due date" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="todoForm.get('dueDate').hasError('required')">You must enter a value</mat-error>
+          </mat-form-field>
+          <div fxFlexFill fxLayoutAlign="center">
+            <button type="submit" mat-raised-button color="primary" [disabled]="todoForm.invalid">Create</button>
+          </div>
+        </form>
+      </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <mat-card>
+        <mat-spinner *ngIf="loading"></mat-spinner>
+        <mat-list role="list">
+          <mat-list-item
+            role="listitem"
+            *ngFor="let todo of todos | async"
+            (mouseenter)="hoveredId = todo.key" (mouseleave)="hoveredId = null">
+            <div class="body">{{ todo.body }}</div>
+            <div class="due-date">{{ todo.dueDate | date }}</div>
+            <div class="delete-button">
+                <button mat-icon-button (click)="deleteTodo(todo.key)" *ngIf="hoveredId === todo.key">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+          </mat-list-item>
+        </mat-list>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
 </div>
