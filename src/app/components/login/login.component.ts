@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['']);
       })
       .catch(error => {
-        this.snackBar.open('ログインに失敗しました', '閉じる', {
+        this.snackBar.open('Login failed', 'Close', {
           duration: 2000,
         });
       });
