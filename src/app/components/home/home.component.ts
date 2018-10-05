@@ -25,7 +25,8 @@ export class HomeComponent implements OnInit {
       )
     );
     this.todoForm = fb.group({
-      body: ['', Validators.required]
+      body: ['', Validators.required],
+      dueDate: ['', Validators.required]
     });
   }
 
@@ -33,8 +34,8 @@ export class HomeComponent implements OnInit {
   }
 
   createTodo() {
-    const { body } = this.todoForm.value;
-    this.todosRef.push({ body })
+    const { body, dueDate } = this.todoForm.value;
+    this.todosRef.push({ body, dueDate: dueDate.getTime() })
       .then(() => {
         this.todoForm.reset();
       });
