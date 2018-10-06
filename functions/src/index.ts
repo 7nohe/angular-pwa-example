@@ -15,9 +15,10 @@ export const fcmSend = functions.database.ref('/messages/{userId}/{messageId}').
 
   const payload = {
     notification: {
-      title: message.title,
+      title: "Hello 🎉",
       body: message.body,
-      icon: ""
+      click_action: "https://angular-pwa-example.firebaseapp.com/",
+      icon: 'https://cat.reactjsgirls.com/images/7ae33a49a98414250d70ad0f5799d9a9.jpg'
     }
   };
 
@@ -36,4 +37,5 @@ export const fcmSend = functions.database.ref('/messages/{userId}/{messageId}').
       console.log(err);
     });
 
+  return false;
 });

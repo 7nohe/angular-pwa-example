@@ -31,3 +31,7 @@ self.addEventListener('install', function(event) {
 self.addEventListener('activate', function(event) {
   console.log('Service Worker activating.');
 });
+
+self.addEventListener('notificationclick', function (event) {
+  event.notification.close();
+});
